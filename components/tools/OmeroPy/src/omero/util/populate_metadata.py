@@ -235,6 +235,9 @@ class ValueResolver(object):
     """
 
     AS_ALPHA = [chr(v) for v in range(97, 122 + 1)]  # a-z
+    # Support more than 26 rows
+    for v in range(97, 122 + 1):
+        AS_ALPHA.append('a' + chr(v))
     WELL_REGEX = re.compile(r'^([a-zA-Z]+)(\d+)$')
 
     def __init__(self, client, target_object):
@@ -365,7 +368,7 @@ class ValueResolver(object):
             try:
                 return images_by_id[long(value)].id.val
             except KeyError:
-                log.debug('Image Id: %i not found!' % (value))
+                log.error('Image Id: %s not found!' % (value))
                 return -1L
             return
         if WellColumn is column_class:

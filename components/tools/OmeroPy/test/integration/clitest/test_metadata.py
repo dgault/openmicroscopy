@@ -35,7 +35,7 @@ class MetadataTestBase(CLITest):
     def setup_method(self, method):
         super(MetadataTestBase, self).setup_method(method)
         self.name = self.uuid()
-        self.image = self.importSingleImage(
+        self.image = self.import_single_image(
             GlobalMetadata={'gmd-' + self.name: 'gmd-' + self.name})
 
         conn = BlitzGateway(client_obj=self.client)
@@ -63,8 +63,8 @@ class MetadataTestBase(CLITest):
     def create_roi(self, img):
         roi = omero.model.RoiI()
         point = omero.model.PointI()
-        point.setCx(rdouble(1))
-        point.setCy(rdouble(2))
+        point.setX(rdouble(1))
+        point.setY(rdouble(2))
         roi.addShape(point)
         roi.setImage(img)
         roi = self.client.getSession().getUpdateService().saveAndReturnObject(
